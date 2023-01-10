@@ -46,7 +46,7 @@ export const contactsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(deleteContact.fulfilled, (state, { payload }) => {
-        state.items = state.items.filter(contact => contact.id !== payload);
+        state.items = state.items.filter(contact => contact.id !== payload.id);
         state.isLoading = false;
         state.error = null;
         Notiflix.Notify.info(
