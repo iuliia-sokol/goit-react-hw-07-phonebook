@@ -60,7 +60,6 @@ export const contactsSlice = createSlice({
     builder.addCase(deleteContact.rejected, (state, { payload }) => {
       state.error = payload;
       state.isLoading = false;
-      console.log(state.error);
     });
   },
 });
