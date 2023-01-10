@@ -6,7 +6,11 @@ import { defaultContacts } from '../utils/defaultContacts';
 
 export const contactsSlice = createSlice({
   name: 'contacts',
-  initialState: defaultContacts,
+  initialState: {
+    items: defaultContacts,
+    isLoading: false,
+    error: null,
+  },
   reducers: {
     addContact: (state, { payload }) => {
       const { name, number } = payload;
