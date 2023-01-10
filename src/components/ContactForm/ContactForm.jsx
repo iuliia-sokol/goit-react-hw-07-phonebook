@@ -1,16 +1,19 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Notiflix from 'notiflix';
 import { MdPersonAddAlt1 } from 'react-icons/md';
-import { addContact } from '../../redux/contactsSlice';
+import { addContact } from '../../redux/operations';
 import { Form, Label } from './ContactForm.styled';
 import { Btn } from '../Btn/Btn';
 import { InputItem } from './InputItem';
+import { notifySettings } from '../utils/notifySettings';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(state => state.contacts.items);
 
   const onInputChange = event => {
     switch (event.target.name) {
@@ -27,6 +30,18 @@ export const ContactForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    const includesName = contacts.find(
+      contact => contact.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+    );
+
+    if (includesName) {
+      return Notiflix.Notify.warning(
+        `${name} is already in contacts`,
+        notifySettings
+      );
+    }
+
     dispatch(addContact({ name, number }));
     resetForm();
   };
