@@ -6,7 +6,7 @@ import { addContact } from '../../redux/operations';
 import { Form, Label } from './ContactForm.styled';
 import { Btn } from '../Btn/Btn';
 import { InputItem } from './InputItem';
-import { notifySettings } from '../utils/notifySettings';
+import { notifySettings } from '../../utils/notifySettings';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();

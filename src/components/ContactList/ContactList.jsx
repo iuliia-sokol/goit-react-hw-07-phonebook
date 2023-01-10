@@ -1,10 +1,10 @@
-import { removeContact } from '../../redux/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Notiflix from 'notiflix';
 import { notifySettings } from '../../utils/notifySettings';
 
 import { List } from './ContactList.styled';
 import { ContactItem } from './CotactItem';
+import { deleteContact } from 'redux/operations';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export const ContactList = () => {
             key={contact.id}
             name={contact.name}
             number={contact.number}
-            onDeleteBtnClick={() => dispatch(removeContact(contact))}
+            onDeleteBtnClick={() => dispatch(deleteContact(contact))}
           />
         );
       })}
