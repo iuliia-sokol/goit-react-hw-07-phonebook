@@ -1,15 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import Notiflix from 'notiflix';
 import { notifySettings } from '../../utils/notifySettings';
 
 import { List } from './ContactList.styled';
 import { ContactItem } from './CotactItem';
-import { deleteContact } from 'redux/operations';
+import { fetchContacts, deleteContact } from 'redux/operations';
 
 export const ContactList = () => {
   const dispatch = useDispatch();
 
-  const contacts = useSelector(state => state.contacts);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const contacts = useSelector(state => state.contacts.items);
   const filter = useSelector(state => state.filter);
 
   const filterContacts = () => {
@@ -24,6 +29,7 @@ export const ContactList = () => {
         'No contacts matching your request',
         notifySettings
       );
+      return [];
     }
     return filteredContacts;
   };
